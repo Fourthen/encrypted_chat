@@ -1,29 +1,60 @@
 # Secure Chat System (ChaCha20-Poly1305)
 
-This project is a secure chat system that uses ChaCha20 for encryption and Poly1305 for message authentication. It ensures that all messages are:
+This project is a secure, multi-client chat application written in Python.
+It allows multiple users to send and receive encrypted messages over a network.
 
-Confidential – only intended recipients can read messages.
+The main goal of this project is to demonstrate how secure communication can be implemented using modern cryptography and networking concepts.
 
-Authenticated – messages cannot be tampered with undetected.
+# Features
+Multiple clients can connect to one server
 
-Integrity-protected – messages are verified before decryption.
+End-to-end encrypted messaging
 
-The system is built with modern cryptography practices and demonstrates an end-to-end encryption (E2EE) approach.
+Unique encryption key for each client
+
+Username support
+
+Messages are broadcast to all connected clients
+
+Secure key exchange using Diffie–Hellman
+
+# Technologies Used
+
+Programming Language: Python
+
+Networking: TCP sockets
+
+Multithreading: threading module
+
+Cryptography: PyCryptodome
+
+Encryption: ChaCha20-Poly1305
+
+Key Exchange: Diffie–Hellman
+
+Key Derivation: HKDF (SHA-256)
+
+# How it works
+
+1. The user runs the server on one machine.
+
+2. Other users run the client and connect by using the server’s IP address and a port.
+
+3. When connecting:
+
+- The server and client perform a Diffie–Hellman key exchange
+
+- This creates a shared secret without sending it over the network
+
+4. The shared secret is converted into a 256-bit key using HKDF
+
+5. All messages are encrypted using ChaCha20-Poly1305
+
+6. Messages are sent to the server and then securely broadcast to other users
+
+Everything sent over the network is encrypted. No plaintext messages are visible to eavesdroppers.
 
 
+**To establish a connection, the client socket must use the correct server IP address and port number. These settings may need to be adjusted depending on the network configuration.**
 
-# Usage Example
-## Encryption
-const { encryptMessage } = require("./crypto-utils");
 
-const key = crypto.randomBytes(32);      // 256-bit key
-const message = "Hello world!";
-
-const encrypted = encryptMessage(message, key);
-console.log(encrypted);
-
-## Decryption
-const { decryptMessage } = require("./crypto-utils");
-
-const decrypted = decryptMessage(encrypted, key);
-console.log(decrypted); // "Hello world!"
