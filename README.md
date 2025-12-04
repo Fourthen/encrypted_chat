@@ -10,10 +10,10 @@ Integrity-protected – messages are verified before decryption.
 
 The system is built with modern cryptography practices and demonstrates an end-to-end encryption (E2EE) approach.
 
-## Usage 
 
-Usage Example
-Encryption
+
+# Usage Example
+## Encryption
 const { encryptMessage } = require("./crypto-utils");
 
 const key = crypto.randomBytes(32);      // 256-bit key
